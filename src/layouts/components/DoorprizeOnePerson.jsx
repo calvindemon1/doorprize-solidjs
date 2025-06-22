@@ -4,53 +4,19 @@ import sfxButton from "../../assets/sfx/sfxbtn.wav";
 
 export default function DoorprizeOnePerson() {
   const buttonSound = new Audio(sfxButton);
+  const hadiahKe = 1;
 
-  const hadiahKe = 1; // bisa diubah sesuai logic undian
-  const initialParticipants = [
-    {
-      nama: "Erick",
-      notelp: "081234567891",
-      status: "QUEUE",
-      hadiah: null,
-      updated_at: null,
-    },
-    {
-      nama: "Dina",
-      notelp: "081234567892",
-      status: "QUEUE",
-      hadiah: null,
-      updated_at: null,
-    },
-    {
-      nama: "Budi",
-      notelp: "081234567893",
-      status: "QUEUE",
-      hadiah: null,
-      updated_at: null,
-    },
-    {
-      nama: "Sari",
-      notelp: "081234567894",
-      status: "QUEUE",
-      hadiah: null,
-      updated_at: null,
-    },
-    {
-      nama: "Andi",
-      notelp: "081234567895",
-      status: "QUEUE",
-      hadiah: null,
-      updated_at: null,
-    },
-  ];
-
-  const [participants, setParticipants] = createSignal(initialParticipants);
+  const [participants, setParticipants] = createSignal([]);
   const [currentName, setCurrentName] = createSignal(null);
   const [winner, setWinner] = createSignal(null);
   const [isRolling, setIsRolling] = createSignal(false);
+  const [isFinishing, setIsFinishing] = createSignal(false);
+
   let rollInterval;
 
   const startRolling = () => {
+    if (participants().length === 0) return;
+
     buttonSound.play();
     setIsRolling(true);
     setWinner(null);
@@ -67,30 +33,61 @@ export default function DoorprizeOnePerson() {
     }, 50);
   };
 
-  const stopRolling = () => {
-    if (isRolling()) {
-      buttonSound.play();
-      clearInterval(rollInterval);
-      setIsRolling(false);
-      const selected = currentName();
-      const now = new Date().toISOString();
+  const stopRolling = async () => {
+    if (!isRolling()) return;
+
+    buttonSound.play();
+    clearInterval(rollInterval);
+    setIsRolling(false);
+
+    const selected = currentName();
+    if (!selected || !selected.id) return;
+
+    const now = new Date().toISOString();
+    const hadiahLabel = "Special Custom Prize";
+    setIsFinishing(true);
+
+    try {
+      const res = await fetch(
+        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/update-winner",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: JSON.stringify({
+            id: selected.id,
+            hadiah: hadiahLabel,
+          }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Gagal update winner");
+
       const updatedList = participants().map((p) =>
-        p.nama === selected.nama
+        p.id === selected.id
           ? {
               ...p,
               status: "DONE",
-              hadiah: hadiahKe,
+              hadiah: hadiahLabel,
               updated_at: now,
             }
           : p
       );
+
       setParticipants(updatedList);
       setWinner({
         ...selected,
         status: "DONE",
-        hadiah: hadiahKe,
+        hadiah: hadiahLabel,
         updated_at: now,
       });
+    } catch (err) {
+      console.error("Gagal kirim data pemenang ke server:", err);
+      alert("Gagal kirim data pemenang. Cek koneksi atau server.");
+    } finally {
+      setIsFinishing(false);
     }
   };
 
@@ -102,8 +99,28 @@ export default function DoorprizeOnePerson() {
     }
   };
 
-  onMount(() => {
+  onMount(async () => {
     window.addEventListener("keydown", handleKeyPress);
+
+    try {
+      const res = await fetch(
+        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/queue",
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        setParticipants(data);
+      } else {
+        console.error("Data from API is not an array:", data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch participants:", err);
+    }
   });
 
   onCleanup(() => {
@@ -113,8 +130,6 @@ export default function DoorprizeOnePerson() {
 
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden">
-      <img src={logoJudul} alt="Logo" class="w-[500px] mb-6" />
-
       <div class="text-4xl mb-6 text-center">
         {isRolling() && currentName() && (
           <>
@@ -131,7 +146,7 @@ export default function DoorprizeOnePerson() {
             <div class="mt-2 text-lg">Hadiah ke-{winner().hadiah}</div>
           </>
         )}
-        {!isRolling() && !winner() && (
+        {!isRolling() && !winner() && !isFinishing() && (
           <div>
             Tekan <span class="text-green-400 font-bold">R</span> untuk mulai
             undian

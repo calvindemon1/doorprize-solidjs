@@ -7,6 +7,7 @@ import backgroundPhotobooth from "./assets/img/bgphotobooth.webp";
 import DoorprizeThreeWinners from "./layouts/components/DoorprizeThreePerson";
 import DoorprizeThreePersons from "./layouts/components/DoorprizeThreePerson";
 import StopWatchFirst from "./layouts/components/StopWatchFirst";
+import ShortcutWrapper from "./layouts/helper/ShortcutWrapper";
 let bgmAudio;
 
 function App() {
@@ -56,12 +57,14 @@ function App() {
         <Loading />
       ) : (
         <Router>
-          <Route path="/" component={DoorprizeOnePerson} />
-          <Route path="/3-persons" component={DoorprizeThreePersons} />
+          <ShortcutWrapper>
+            <Route path="/" component={DoorprizeOnePerson} />
+            <Route path="/3-persons" component={DoorprizeThreePersons} />
 
-          <Route path="/stop-watch-first" component={StopWatchFirst} />
+            <Route path="/stop-watch-first" component={StopWatchFirst} />
 
-          <Route path="/*" component={NotFoundPage} />
+            <Route path="/*" component={NotFoundPage} />
+          </ShortcutWrapper>
         </Router>
       )}
     </div>

@@ -65,8 +65,6 @@ export default function StopWatchFirst() {
 
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
-      <img src={logoJudul} alt="Logo" class="w-[500px] mb-6" />
-
       <p class="text-xl mb-2">🏃 Pocari Run Marathon 5K 🏃</p>
 
       <div class="text-5xl font-bold tracking-widest bg-blue-600 px-6 py-4 rounded-lg shadow-lg mb-6">

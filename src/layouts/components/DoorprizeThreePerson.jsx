@@ -5,15 +5,7 @@ import sfxButton from "../../assets/sfx/sfxbtn.wav";
 export default function DoorprizeThreePersons() {
   const buttonSound = new Audio(sfxButton);
 
-  const initialParticipants = Array.from({ length: 21 }, (_, i) => ({
-    nama: `Peserta ${i + 1}`,
-    notelp: `08${Math.floor(100000000 + Math.random() * 900000000)}`,
-    status: "QUEUE",
-    hadiah: null,
-    updated_at: null,
-  }));
-
-  const [participants, setParticipants] = createSignal(initialParticipants);
+  const [participants, setParticipants] = createSignal([]);
   const [currentNames, setCurrentNames] = createSignal([]);
   const [isRolling, setIsRolling] = createSignal(false);
   let rollInterval;
@@ -43,30 +35,55 @@ export default function DoorprizeThreePersons() {
     }, 100);
   };
 
-  const stopRolling = () => {
-    if (isRolling()) {
-      buttonSound.play();
-      clearInterval(rollInterval);
-      setIsRolling(false);
+  const stopRolling = async () => {
+    if (!isRolling()) return;
 
-      const selected = currentNames();
-      const now = new Date().toISOString();
+    buttonSound.play();
+    clearInterval(rollInterval);
+    setIsRolling(false);
 
-      const updated = participants().map((p) => {
-        const match = selected.find((s) => s.nama === p.nama);
-        if (match) {
-          return {
-            ...p,
-            status: "DONE",
-            hadiah: hadiahCounter++,
-            updated_at: now,
-          };
-        }
-        return p;
-      });
+    const selected = currentNames();
+    const now = new Date().toISOString();
 
-      setParticipants(updated);
+    // ✅ Loop & kirim data ke backend
+    for (const person of selected) {
+      try {
+        await fetch(
+          "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/update-winner",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true",
+            },
+            body: JSON.stringify({
+              id: person.id,
+              hadiah: `Special Custom Prize #${hadiahCounter}`,
+            }),
+          }
+        );
+        hadiahCounter++;
+      } catch (err) {
+        console.error(`Gagal update untuk ${person.nama}`, err);
+        alert(`Gagal update hadiah untuk ${person.nama}`);
+      }
     }
+
+    // ✅ Update state lokal
+    const updated = participants().map((p) => {
+      const match = selected.find((s) => s.id === p.id);
+      if (match) {
+        return {
+          ...p,
+          status: "DONE",
+          hadiah: `Special Custom Prize #${hadiahCounter - 1}`, // atau simpan individual if needed
+          updated_at: now,
+        };
+      }
+      return p;
+    });
+
+    setParticipants(updated);
   };
 
   const pickRandomUnique = (list, count) => {
@@ -82,8 +99,27 @@ export default function DoorprizeThreePersons() {
     }
   };
 
-  onMount(() => {
+  onMount(async () => {
     window.addEventListener("keydown", handleKeyPress);
+
+    try {
+      const res = await fetch(
+        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/queue",
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setParticipants(data);
+      } else {
+        console.error("Data dari API bukan array", data);
+      }
+    } catch (err) {
+      console.error("Gagal ambil data peserta", err);
+    }
   });
 
   onCleanup(() => {
@@ -96,8 +132,6 @@ export default function DoorprizeThreePersons() {
 
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
-      <img src={logoJudul} alt="Logo" class="w-[500px] mb-6" />
-
       <div class="text-2xl mb-6 text-center">
         {isRolling()
           ? "Mengundi..."
@@ -117,25 +151,6 @@ export default function DoorprizeThreePersons() {
         ))}
       </div>
 
-      {/* <div class="flex gap-4 mb-6">
-        <button
-          onClick={startRolling}
-          class="bg-green-500 hover:bg-green-400 text-white px-5 py-2 rounded-xl text-lg"
-          disabled={
-            isRolling() || getQueuedParticipants().length < WINNER_COUNT
-          }
-        >
-          Mulai (R)
-        </button>
-        <button
-          onClick={stopRolling}
-          class="bg-red-500 hover:bg-red-400 text-white px-5 py-2 rounded-xl text-lg"
-          disabled={!isRolling()}
-        >
-          Berhenti (S)
-        </button>
-      </div> */}
-
       <div class="text-sm text-gray-300 mb-2">
         Peserta tersisa: {getQueuedParticipants().length}
       </div>
@@ -146,7 +161,7 @@ export default function DoorprizeThreePersons() {
           <ul>
             {doneParticipants().map((p, idx) => (
               <li key={idx} class="text-green-400">
-                {idx + 1}. {p.nama} ({p.notelp}) - Hadiah #{p.hadiah}
+                {idx + 1}. {p.nama} ({p.notelp}) - {p.hadiah}
               </li>
             ))}
           </ul>
