@@ -48,20 +48,16 @@ export default function DoorprizeThreePersons() {
     // ✅ Loop & kirim data ke backend
     for (const person of selected) {
       try {
-        await fetch(
-          "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/update-winner",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "ngrok-skip-browser-warning": "true",
-            },
-            body: JSON.stringify({
-              id: person.id,
-              hadiah: `Special Custom Prize #${hadiahCounter}`,
-            }),
-          }
-        );
+        await fetch("http://31.97.60.198:3119/api/participants/update-winner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: person.id,
+            hadiah: `Special Custom Prize #${hadiahCounter}`,
+          }),
+        });
         hadiahCounter++;
       } catch (err) {
         console.error(`Gagal update untuk ${person.nama}`, err);
@@ -104,10 +100,10 @@ export default function DoorprizeThreePersons() {
 
     try {
       const res = await fetch(
-        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/queue",
+        "http://31.97.60.198:3119/api/participants/queue",
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
+            "Content-Type": "application/json",
           },
         }
       );

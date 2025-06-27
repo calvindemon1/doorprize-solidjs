@@ -8,6 +8,7 @@ import DoorprizeThreeWinners from "./layouts/components/DoorprizeThreePerson";
 import DoorprizeThreePersons from "./layouts/components/DoorprizeThreePerson";
 import StopWatchFirst from "./layouts/components/StopWatchFirst";
 import ShortcutWrapper from "./layouts/helper/ShortcutWrapper";
+import MobileViewCMS from "./layouts/components/MobileViewCMS";
 let bgmAudio;
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
             <Route path="/3-persons" component={DoorprizeThreePersons} />
 
             <Route path="/stop-watch-first" component={StopWatchFirst} />
+
+            <Route path="/mobile-cms" component={MobileViewCMS} />
 
             <Route path="/*" component={NotFoundPage} />
           </ShortcutWrapper>

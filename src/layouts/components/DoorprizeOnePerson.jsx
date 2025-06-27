@@ -49,12 +49,11 @@ export default function DoorprizeOnePerson() {
 
     try {
       const res = await fetch(
-        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/update-winner",
+        "http://31.97.60.198:3119/api/participants/update-winner",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
           },
           body: JSON.stringify({
             id: selected.id,
@@ -104,10 +103,10 @@ export default function DoorprizeOnePerson() {
 
     try {
       const res = await fetch(
-        "https://e883-2404-8000-1024-7a86-a814-34bf-8ee3-4e80.ngrok-free.app/api/participants/queue",
+        "http://31.97.60.198:3119/api/participants/queue",
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
+            "Content-Type": "application/json",
           },
         }
       );
