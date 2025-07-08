@@ -1,5 +1,4 @@
 import { useNavigate } from "@solidjs/router";
-import logoJudul from "../assets/img/logojudul.webp";
 import styles from "../App.module.css";
 
 export default function NotFoundPage() {
@@ -16,10 +15,10 @@ export default function NotFoundPage() {
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden p-5">
       <div
-        class={`flex flex-col items-center ${styles.fadeIn}`}
+        class={`flex flex-col items-center text-white ${styles.fadeIn}`}
         style={{ fontFamily: "NormProRegular" }}
       >
-        <img src={logoJudul} alt="Logo" class="w-64 mb-6" />
+        {/* <img src={logoJudul} alt="Logo" class="w-64 mb-6" /> */}
 
         <div class="flex flex-row items-center mb-8 gap-4 p-2 shadow-lg border-4 border-white rounded-lg">
           <p class="text-xl text-center font-semibold">
@@ -31,7 +30,7 @@ export default function NotFoundPage() {
         <div class="flex gap-5 mt-4">
           <button
             onClick={handleBackHome}
-            class="bg-gradient-to-r from-[#7f6bc6] to-[#be72c2] text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 active:scale-95 uppercase"
+            class="bg-gradient-to-r from-[#3100e3] to-[#199bbe] text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 active:scale-95 uppercase"
           >
             Kembali ke menu utama
           </button>

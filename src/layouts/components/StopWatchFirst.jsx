@@ -1,11 +1,13 @@
 import { createSignal, onMount, onCleanup } from "solid-js";
 import logoJudul from "../../assets/img/logojudul.webp";
 import sfxButton from "../../assets/sfx/sfxbtn.wav";
+import { useParams } from "@solidjs/router";
 
 export default function StopWatchFirst() {
   const [isRunning, setIsRunning] = createSignal(false);
   const [elapsed, setElapsed] = createSignal(0);
   const buttonSound = new Audio(sfxButton);
+  const idStopWatch = useParams().id;
   let interval;
   let startTime = 0;
 
@@ -65,6 +67,7 @@ export default function StopWatchFirst() {
 
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
+      <p class="text-3xl font-bold mb-2">STOP WATCH - {idStopWatch}</p>
       <p class="text-xl mb-2">🏃 Pocari Run Marathon 5K 🏃</p>
 
       <div class="text-5xl font-bold tracking-widest bg-blue-600 px-6 py-4 rounded-lg shadow-lg mb-6">

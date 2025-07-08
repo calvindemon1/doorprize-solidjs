@@ -47,12 +47,12 @@ function App() {
 
   return (
     <div
-      class="flex flex-col items-center min-h-screen bg-cover bg-center"
-      style={{
-        "background-image": `url(${backgroundPhotobooth})`,
-        "background-size": "cover",
-        "background-position": "center",
-      }}
+      class="flex flex-col items-center bg-black min-h-screen bg-cover bg-center"
+      // style={{
+      //   "background-image": `url(${backgroundPhotobooth})`,
+      //   "background-size": "cover",
+      //   "background-position": "center",
+      // }}
     >
       {loading() ? (
         <Loading />
@@ -62,9 +62,11 @@ function App() {
             <Route path="/" component={DoorprizeOnePerson} />
             <Route path="/3-persons" component={DoorprizeThreePersons} />
 
-            <Route path="/stop-watch-first" component={StopWatchFirst} />
+            <Route path="/stop-watch-first/:id" component={StopWatchFirst} />
 
             <Route path="/mobile-cms" component={MobileViewCMS} />
+
+            <Route path="/loading" component={Loading} />
 
             <Route path="/*" component={NotFoundPage} />
           </ShortcutWrapper>
