@@ -21,13 +21,11 @@ jobs:
       - name: Deploy Application
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: ${{ secrets.FEDRW_HOST }}
-          username: ${{ secrets.FEDRW_USER }}
-          password: ${{ secrets.FEDRW_PASSWORD }}
+          host: ${{ secrets.DPPR_HOST }}
+          username: ${{ secrets.DPPR_USER }}
+          password: ${{ secrets.DPPR_PASSWORD }}
           port: 22
           script: |
-            # Ensure npm and node are in the PATH
-            export PATH=$PATH:/home/buildyourdreams-draw/.nvm/versions/node/v22.16.0/bin
   
             # Check if npm is available
             which npm || { echo "npm not found"; exit 1; }
@@ -35,7 +33,7 @@ jobs:
             echo "Starting deployment process..."
 
             # Navigate to the application's directory
-            cd /home/buildyourdreams-draw/htdocs/draw.buildyourdreams.live/byd-pitch-drawtoai || exit
+            cd /home/nexttechenterprise-doorprize/htdocs/doorprize.nexttechenterprise.site || exit
 
             # Pull the latest changes from the GitHub repository
             git pull origin main
@@ -51,7 +49,7 @@ jobs:
 
             # Save the PM2 process list and startup script
             pm2 save
-
+            
             # Set up PM2 to start on boot with systemd
             pm2 startup systemd -u ${USER} --hp /home/${USER}
 
