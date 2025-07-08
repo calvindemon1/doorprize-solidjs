@@ -26,6 +26,9 @@ jobs:
           password: ${{ secrets.DPPR_PASSWORD }}
           port: 22
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 22
   
             # Check if npm is available
             which npm || { echo "npm not found"; exit 1; }
@@ -33,7 +36,7 @@ jobs:
             echo "Starting deployment process..."
 
             # Navigate to the application's directory
-            cd /home/calvin-next/htdocs/doorprize.nexttechenterprise.site || exit
+            cd /home/nexttechenterprise-doorprize/htdocs/doorprize.nexttechenterprise.site || exit
 
             # Pull the latest changes from the GitHub repository
             git pull origin main
