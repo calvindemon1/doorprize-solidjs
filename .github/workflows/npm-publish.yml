@@ -33,7 +33,7 @@ jobs:
             echo "Starting deployment process..."
 
             # Navigate to the application's directory
-            cd /home/nexttechenterprise-doorprize/htdocs/doorprize.nexttechenterprise.site || exit
+            cd /home/calvin-next/htdocs/doorprize.nexttechenterprise.site || exit
 
             # Pull the latest changes from the GitHub repository
             git pull origin main
