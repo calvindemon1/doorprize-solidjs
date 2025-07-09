@@ -13,3 +13,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: "Gobold";
+  src: url("./assets/fonts/gobold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Myriad";
+  src: url("./assets/fonts/myriadpro.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
