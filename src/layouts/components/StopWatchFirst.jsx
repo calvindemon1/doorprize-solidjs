@@ -81,7 +81,7 @@ export default function StopWatchFirst() {
     <div
       class="min-h-screen w-full grid grid-rows-2"
       style={{
-        "font-family": "Myriad",
+        "font-family": "Gobold",
       }}
     >
       <div
