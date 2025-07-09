@@ -31,8 +31,7 @@ jobs:
             cd /home/nexttechenterprise-doorprize/htdocs/doorprize.nexttechenterprise.site || exit
 
             # Git pull
-            git fetch origin
-            git reset --hard origin/main
+            git pull origin main
 
             # Install dependencies
             npm install
