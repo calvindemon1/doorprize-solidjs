@@ -31,7 +31,8 @@ jobs:
             cd /home/nexttechenterprise-doorprize/htdocs/doorprize.nexttechenterprise.site || exit
 
             # Git pull
-            git pull origin main
+             git fetch origin
+             git reset --hard origin/main
 
             # Install dependencies
             npm install
@@ -40,7 +41,7 @@ jobs:
             npm run build
 
             # Jalankan PM2
-            pm2 startOrReload ecosystem.config.cjs --update-env
+            pm2 startOrReload ecosystem.config.cjs
 
             # Save PM2 list
             pm2 save
