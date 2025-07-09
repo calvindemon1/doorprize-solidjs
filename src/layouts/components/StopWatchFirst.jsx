@@ -4,6 +4,7 @@ import sfxButton from "../../assets/sfx/sfxbtn.wav";
 import { useParams } from "@solidjs/router";
 
 export default function StopWatchFirst() {
+  const [laps, setLaps] = createSignal([]);
   const [isRunning, setIsRunning] = createSignal(false);
   const [elapsed, setElapsed] = createSignal(0);
   const buttonSound = new Audio(sfxButton);
@@ -37,6 +38,15 @@ export default function StopWatchFirst() {
     setElapsed(0);
   };
 
+  const lap = () => {
+    buttonSound.play();
+    const newLap = {
+      time: formatTime(elapsed()),
+      rawTime: elapsed(),
+    };
+    setLaps((prev) => [...prev, newLap]);
+  };
+
   const formatTime = (ms) => {
     const date = new Date(ms);
     const h = String(date.getUTCHours()).padStart(2, "0");
@@ -53,6 +63,8 @@ export default function StopWatchFirst() {
       stop();
     } else if (e.key === "t" || e.key === "T") {
       reset();
+    } else if (e.key === "l" || e.key === "L") {
+      lap();
     }
   };
 
@@ -66,33 +78,76 @@ export default function StopWatchFirst() {
   });
 
   return (
-    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
-      <p class="text-3xl font-bold mb-2">STOP WATCH - {idStopWatch}</p>
-      <p class="text-xl mb-2">🏃 Pocari Run Marathon 5K 🏃</p>
-
-      <div class="text-5xl font-bold tracking-widest bg-blue-600 px-6 py-4 rounded-lg shadow-lg mb-6">
-        {formatTime(elapsed())}
+    <div class="min-h-screen w-full grid grid-rows-2">
+      <div
+        class={`${
+          idStopWatch != 1
+            ? "bg-[#ffffff] text-[#0086f3]"
+            : "bg-[#0086f3] text-white"
+        } flex flex-col items-center justify-center text-[150px] font-bold tracking-widest gap-4`}
+      >
+        <h1>
+          {idStopWatch == 1 ? "5K" : idStopWatch == 2 ? "10K" : "HALF MARATHON"}
+        </h1>
+        <h1>{formatTime(elapsed())}</h1>
       </div>
 
-      <div class="flex gap-4">
-        <button
-          onClick={start}
-          class="bg-green-500 hover:bg-green-400 px-4 py-2 rounded text-white"
-        >
-          Start (R)
-        </button>
-        <button
-          onClick={stop}
-          class="bg-red-500 hover:bg-red-400 px-4 py-2 rounded text-white"
-        >
-          Stop (S)
-        </button>
-        <button
-          onClick={reset}
-          class="bg-yellow-500 hover:bg-yellow-400 px-4 py-2 rounded text-white"
-        >
-          Reset (T)
-        </button>
+      <div class=" bg-black text-white flex items-center h-full w-full gap-10">
+        <div class="w-3/4 max-h-[500px] overflow-y-auto border-4 border-gray-500 rounded">
+          <table class="w-full text-left text-white border-collapse">
+            <thead class="border-b-4 border-gray-500 text-[30px] sticky top-0 bg-black z-10">
+              <tr>
+                <th class="py-4 px-6 border-r-4 border-gray-500">#</th>
+                <th class="py-4 px-6">Lap Time</th>
+              </tr>
+            </thead>
+            <tbody class="overflow-y-auto">
+              <For each={laps()}>
+                {(lap, i) => (
+                  <tr class="border-b-2 border-gray-700 text-[30px] hover:bg-gray-800">
+                    <td class="py-3 px-6 border-r-2 border-gray-700">
+                      {i() + 1}
+                    </td>
+                    <td class="py-3 px-6">{lap.time}</td>
+                  </tr>
+                )}
+              </For>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="w-1/4 flex flex-col justify-center items-stretch gap-4 text-[30px]">
+          <button
+            onClick={start}
+            class="bg-green-500 hover:bg-green-400 w-full px-6 py-3 rounded text-white"
+          >
+            Start (R)
+          </button>
+          <button
+            onClick={stop}
+            class="bg-red-500 hover:bg-red-400 w-full px-6 py-3 rounded text-white"
+          >
+            Stop (S)
+          </button>
+          <button
+            onClick={lap}
+            class="bg-blue-500 hover:bg-blue-400 w-full px-6 py-3 rounded text-white"
+          >
+            Lap (L)
+          </button>
+          <button
+            onClick={reset}
+            class="bg-yellow-500 hover:bg-yellow-400 w-full px-6 py-3 rounded text-white"
+          >
+            Reset Timer (T)
+          </button>
+          <button
+            onClick={() => setLaps([])}
+            class="bg-white text-black hover:bg-gray-200 w-full px-6 py-3 rounded"
+          >
+            Reset Laps
+          </button>
+        </div>
       </div>
     </div>
   );
