@@ -48,7 +48,7 @@ export default function DoorprizeThreePersons() {
     // ✅ Loop & kirim data ke backend
     for (const person of selected) {
       try {
-        await fetch("http://31.97.60.198:3119/api/participants/update-winner", {
+        await fetch("https://bedoorprize.nexttechenterprise.site/api/participants/update-winner", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export default function DoorprizeThreePersons() {
 
     try {
       const res = await fetch(
-        "http://31.97.60.198:3119/api/participants/queue",
+        "https://bedoorprize.nexttechenterprise.site/api/participants/queue",
         {
           headers: {
             "Content-Type": "application/json",
@@ -108,10 +108,10 @@ export default function DoorprizeThreePersons() {
         }
       );
       const data = await res.json();
-      if (Array.isArray(data)) {
-        setParticipants(data);
+      if (Array.isArray(data.data)) {
+        setParticipants(data.data);
       } else {
-        console.error("Data dari API bukan array", data);
+        console.error("Data dari API bukan array", data.data);
       }
     } catch (err) {
       console.error("Gagal ambil data peserta", err);

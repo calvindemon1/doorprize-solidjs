@@ -33,27 +33,27 @@ export default function MobileViewCMS() {
 
   const refreshWinners = async () => {
     const resWinners = await fetch(
-      "http://31.97.60.198:3119/api/participants/winners"
+      "https://bedoorprize.nexttechenterprise.site/api/participants/winners"
     );
     const winnerData = await resWinners.json();
-    setDataWinners(winnerData || []);
+    setDataWinners(winnerData.data || []);
   };
 
   onMount(async () => {
     try {
       const resQueue = await fetch(
-        "http://31.97.60.198:3119/api/participants/queue"
+        "https://bedoorprize.nexttechenterprise.site/api/participants/queue"
       );
       const queueData = await resQueue.json();
-      setDataQueue(queueData || []);
+      setDataQueue(queueData.data || []);
 
       await refreshWinners();
 
       const resSorted = await fetch(
-        "http://31.97.60.198:3119/api/participants/all-sorted"
+        "https://bedoorprize.nexttechenterprise.site/api/participants/all-sorted"
       );
       const sortedData = await resSorted.json();
-      setDataSorted(sortedData || []);
+      setDataSorted(sortedData.data || []);
     } catch (error) {
       console.error("Failed to fetch participants:", error);
     }

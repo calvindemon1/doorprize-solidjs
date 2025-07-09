@@ -1,6 +1,6 @@
 export async function createWinner(payload) {
   const res = await fetch(
-    "http://31.97.60.198:3119/api/participants/winner",
+    "https://bedoorprize.nexttechenterprise.site/api/participants/winner",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ export async function createWinner(payload) {
 
 export async function updateWinner(payload) {
   const res = await fetch(
-    "http://31.97.60.198:3119/api/participants/update-winner",
+    "https://bedoorprize.nexttechenterprise.site/api/participants/update-winner",
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -28,7 +28,7 @@ export async function updateWinner(payload) {
 
 export async function deleteWinner(id) {
   const res = await fetch(
-    `http://31.97.60.198:3119/api/participants/winner/${id}`,
+    `https://bedoorprize.nexttechenterprise.site/api/participants/winner/${id}`,
     {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
