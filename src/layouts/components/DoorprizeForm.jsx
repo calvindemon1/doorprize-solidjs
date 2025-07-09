@@ -24,7 +24,7 @@ export default function DoorprizeForm(props) {
       alert(err.message);
     }
   };
-
+//trrestupdate
   return (
     <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div class="bg-white p-6 rounded text-black w-96">
