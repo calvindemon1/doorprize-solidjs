@@ -36,6 +36,7 @@ jobs:
 
             # Install dependencies
             npm install
+            npm install serve --save
 
             # Build
             npm run build
