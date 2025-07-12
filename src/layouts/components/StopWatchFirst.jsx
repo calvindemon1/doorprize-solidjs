@@ -93,15 +93,15 @@ export default function StopWatchFirst() {
             : "bg-[#007DCA]"
         } text-white flex flex-col items-center justify-center text-[150px] font-bold tracking-widest gap-4`}
       >
-        <h1>
-          {idStopWatch == 1 ? "5K" : idStopWatch == 2 ? "10K" : "HALF MARATHON"}
-        </h1>
         <h1
           style={{
             "font-family": "Gobold",
           }}
         >
           {formatTime(elapsed())}
+        </h1>
+        <h1 class="text-[120px]">
+          {idStopWatch == 1 ? "5K" : idStopWatch == 2 ? "10K" : "HALF MARATHON"}
         </h1>
       </div>
 
