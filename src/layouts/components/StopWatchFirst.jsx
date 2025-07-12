@@ -91,7 +91,7 @@ export default function StopWatchFirst() {
             : idStopWatch == 2
             ? "bg-[#D20019]"
             : "bg-[#007DCA]"
-        } text-white flex flex-col items-center justify-center text-[150px] font-bold tracking-widest gap-4`}
+        } text-white flex flex-col items-center justify-center text-[180px] font-bold tracking-widest gap-4`}
       >
         <h1
           style={{
