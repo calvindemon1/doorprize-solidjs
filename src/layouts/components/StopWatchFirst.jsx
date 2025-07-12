@@ -53,7 +53,7 @@ export default function StopWatchFirst() {
     const m = String(date.getUTCMinutes()).padStart(2, "0");
     const s = String(date.getUTCSeconds()).padStart(2, "0");
     const msPart = String(Math.floor(ms % 1000)).padStart(3, "0");
-    return `${h}:${m}:${s}.${msPart}`;
+    return `${h}:${m}:${s}`;
   };
 
   const handleKey = (e) => {
