@@ -49,7 +49,7 @@ export default function DoorprizeOnePerson() {
 
     try {
       const res = await fetch(
-        "https://bedoorprize.nexttechenterprise.site/api/participants/update-winner",
+        "http://localhost:3000/api/participants/update-winner",
         {
           method: "POST",
           headers: {
@@ -103,7 +103,7 @@ export default function DoorprizeOnePerson() {
 
     try {
       const res = await fetch(
-        "https://bedoorprize.nexttechenterprise.site/api/participants/queue",
+        "http://localhost:3000/api/participants/queue",
         {
           headers: {
             "Content-Type": "application/json",
@@ -132,18 +132,24 @@ export default function DoorprizeOnePerson() {
       <div class="text-4xl mb-6 text-center">
         {isRolling() && currentName() && (
           <>
-            <div class="font-bold">{currentName().nama}</div>
-            <div>{currentName().notelp}</div>
+            <div class="font-bold text-[60px] mb-10" 
+          style={{
+            "font-family": "Gobold",
+          }}>{currentName().nama}</div>
+            <div class="text-[60px]"
+          style={{
+            "font-family": "Gobold",
+          }}>{currentName().notelp}</div>
           </>
         )}
-        {winner() && (
+        {/* {winner() && (
           <>
             <div class="text-5xl font-bold text-yellow-400">🎉 Pemenang 🎉</div>
             <div class="text-4xl">{winner().nama}</div>
             <div class="text-2xl text-gray-300">{winner().notelp}</div>
             <div class="mt-2 text-lg">Hadiah ke-{winner().hadiah}</div>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );

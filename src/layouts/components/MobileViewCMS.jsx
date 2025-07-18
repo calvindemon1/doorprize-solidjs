@@ -33,7 +33,7 @@ export default function MobileViewCMS() {
 
   const refreshWinners = async () => {
     const resWinners = await fetch(
-      "https://bedoorprize.nexttechenterprise.site/api/participants/winners"
+      "http://localhost:3000/api/participants/winners"
     );
     const winnerData = await resWinners.json();
     setDataWinners(winnerData.data || []);
@@ -42,7 +42,7 @@ export default function MobileViewCMS() {
   onMount(async () => {
     try {
       const resQueue = await fetch(
-        "https://bedoorprize.nexttechenterprise.site/api/participants/queue"
+        "http://localhost:3000/api/participants/queue"
       );
       const queueData = await resQueue.json();
       setDataQueue(queueData.data || []);
@@ -50,7 +50,7 @@ export default function MobileViewCMS() {
       await refreshWinners();
 
       const resSorted = await fetch(
-        "https://bedoorprize.nexttechenterprise.site/api/participants/all-sorted"
+        "http://localhost:3000/api/participants/all-sorted"
       );
       const sortedData = await resSorted.json();
       setDataSorted(sortedData.data || []);

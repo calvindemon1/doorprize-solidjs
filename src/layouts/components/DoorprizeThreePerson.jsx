@@ -49,7 +49,7 @@ export default function DoorprizeThreePersons() {
     for (const person of selected) {
       try {
         await fetch(
-          "https://bedoorprize.nexttechenterprise.site/api/participants/update-winner",
+          "http://localhost:3000/api/participants/update-winner",
           {
             method: "POST",
             headers: {
@@ -103,7 +103,7 @@ export default function DoorprizeThreePersons() {
 
     try {
       const res = await fetch(
-        "https://bedoorprize.nexttechenterprise.site/api/participants/queue",
+        "http://localhost:3000/api/participants/queue",
         {
           headers: {
             "Content-Type": "application/json",
