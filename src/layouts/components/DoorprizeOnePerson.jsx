@@ -128,7 +128,7 @@ export default function DoorprizeOnePerson() {
   });
 
   return (
-    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden">
+    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-[#66ff66] text-white relative overflow-hidden">
       <div class="text-4xl mb-6 text-center">
         {isRolling() && currentName() && (
           <>
@@ -144,12 +144,6 @@ export default function DoorprizeOnePerson() {
             <div class="mt-2 text-lg">Hadiah ke-{winner().hadiah}</div>
           </>
         )}
-        {/* {!isRolling() && !winner() && !isFinishing() && (
-          <div>
-            Tekan <span class="text-green-400 font-bold">R</span> untuk mulai
-            undian
-          </div>
-        )} */}
       </div>
     </div>
   );

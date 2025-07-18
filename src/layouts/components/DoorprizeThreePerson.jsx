@@ -130,17 +130,7 @@ export default function DoorprizeThreePersons() {
     participants().filter((p) => p.status === "DONE");
 
   return (
-    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
-      {/* <div class="text-2xl mb-6 text-center">
-        {isRolling()
-          ? "Mengundi..."
-          : currentNames().length > 0
-          ? `🎉 Pemenang: ${currentNames()
-              .map((p) => p.nama)
-              .join(", ")} 🎉`
-          : "Tekan R untuk mulai, S untuk berhenti"}
-      </div> */}
-
+    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-[#66ff66] text-white relative overflow-hidden px-4">
       <div class="flex flex-col gap-4 mb-6">
         {currentNames().map((p) => (
           <div class=" rounded-xl p-4 text-center shadow-lg">
@@ -149,23 +139,6 @@ export default function DoorprizeThreePersons() {
           </div>
         ))}
       </div>
-
-      {/* <div class="text-sm text-gray-300 mb-2">
-        Peserta tersisa: {getQueuedParticipants().length}
-      </div> */}
-
-      {/* {doneParticipants().length > 0 && (
-        <div class="mt-4 text-center">
-          <h2 class="text-xl font-bold mb-2">🏆 Semua Pemenang:</h2>
-          <ul>
-            {doneParticipants().map((p, idx) => (
-              <li key={idx} class="text-green-400">
-                {idx + 1}. {p.nama} ({p.notelp}) - {p.hadiah}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
     </div>
   );
 }

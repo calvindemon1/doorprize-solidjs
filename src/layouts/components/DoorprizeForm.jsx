@@ -4,6 +4,7 @@ import { createWinner, updateWinner } from "../api/api"; // sesuaikan path lu
 export default function DoorprizeForm(props) {
   const [nama, setNama] = createSignal(props.data?.nama || "");
   const [hadiah, setHadiah] = createSignal(props.data?.hadiah || "");
+  const [status, setStatus] = createSignal(props.data?.status || "");
 
   const handleSave = async () => {
     try {
@@ -12,11 +13,13 @@ export default function DoorprizeForm(props) {
           id: props.data.id,
           nama: nama(),
           hadiah: hadiah(),
+          status: status(),
         });
       } else {
         await createWinner({
           nama: nama(),
           hadiah: hadiah(),
+          status: status(),
         });
       }
       props.onClose(true);
@@ -24,7 +27,7 @@ export default function DoorprizeForm(props) {
       alert(err.message);
     }
   };
-//trrestupdate
+  //trrestupdate
   return (
     <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div class="bg-white p-6 rounded text-black w-96">
@@ -41,6 +44,13 @@ export default function DoorprizeForm(props) {
           placeholder="Hadiah"
           value={hadiah()}
           onInput={(e) => setHadiah(e.target.value)}
+          class="border w-full p-2 mb-2"
+        />
+        <input
+          type="text"
+          placeholder="status"
+          value={status()}
+          onInput={(e) => setStatus(e.target.value)}
           class="border w-full p-2 mb-2"
         />
         <div class="flex justify-end mt-4 space-x-2">
