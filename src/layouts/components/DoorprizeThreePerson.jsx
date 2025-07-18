@@ -48,16 +48,19 @@ export default function DoorprizeThreePersons() {
     // ✅ Loop & kirim data ke backend
     for (const person of selected) {
       try {
-        await fetch("https://bedoorprize.nexttechenterprise.site/api/participants/update-winner", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: person.id,
-            hadiah: `Special Custom Prize #${hadiahCounter}`,
-          }),
-        });
+        await fetch(
+          "https://bedoorprize.nexttechenterprise.site/api/participants/update-winner",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: person.id,
+              hadiah: `Special Custom Prize #${hadiahCounter}`,
+            }),
+          }
+        );
         hadiahCounter++;
       } catch (err) {
         console.error(`Gagal update untuk ${person.nama}`, err);
@@ -128,7 +131,7 @@ export default function DoorprizeThreePersons() {
 
   return (
     <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden px-4">
-      <div class="text-2xl mb-6 text-center">
+      {/* <div class="text-2xl mb-6 text-center">
         {isRolling()
           ? "Mengundi..."
           : currentNames().length > 0
@@ -136,22 +139,22 @@ export default function DoorprizeThreePersons() {
               .map((p) => p.nama)
               .join(", ")} 🎉`
           : "Tekan R untuk mulai, S untuk berhenti"}
-      </div>
+      </div> */}
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="flex flex-col gap-4 mb-6">
         {currentNames().map((p) => (
-          <div class="bg-gray-800 rounded-xl p-4 text-center shadow-lg">
-            <div class="text-2xl font-bold text-yellow-300">{p.nama}</div>
-            <div class="text-sm text-gray-300">{p.notelp}</div>
+          <div class=" rounded-xl p-4 text-center shadow-lg">
+            <div class="text-2xl font-bold text-white">{p.nama}</div>
+            <div class="text-2xl text-gray-300">{p.notelp}</div>
           </div>
         ))}
       </div>
 
-      <div class="text-sm text-gray-300 mb-2">
+      {/* <div class="text-sm text-gray-300 mb-2">
         Peserta tersisa: {getQueuedParticipants().length}
-      </div>
+      </div> */}
 
-      {doneParticipants().length > 0 && (
+      {/* {doneParticipants().length > 0 && (
         <div class="mt-4 text-center">
           <h2 class="text-xl font-bold mb-2">🏆 Semua Pemenang:</h2>
           <ul>
@@ -162,7 +165,7 @@ export default function DoorprizeThreePersons() {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

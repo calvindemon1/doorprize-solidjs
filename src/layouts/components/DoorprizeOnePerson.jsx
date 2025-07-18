@@ -132,7 +132,6 @@ export default function DoorprizeOnePerson() {
       <div class="text-4xl mb-6 text-center">
         {isRolling() && currentName() && (
           <>
-            <div>Mengundi...</div>
             <div class="font-bold">{currentName().nama}</div>
             <div>{currentName().notelp}</div>
           </>
@@ -145,12 +144,12 @@ export default function DoorprizeOnePerson() {
             <div class="mt-2 text-lg">Hadiah ke-{winner().hadiah}</div>
           </>
         )}
-        {!isRolling() && !winner() && !isFinishing() && (
+        {/* {!isRolling() && !winner() && !isFinishing() && (
           <div>
             Tekan <span class="text-green-400 font-bold">R</span> untuk mulai
             undian
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
