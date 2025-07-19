@@ -151,6 +151,7 @@ export default function MobileViewCMS() {
             <tr>
               <th class="px-4 py-2">#</th>
               <th class="px-4 py-2">Nama</th>
+              <th class="px-4 py-2">BiB</th>
               <th class="px-4 py-2">Status</th>
               <th class="px-4 py-2">Hadiah</th>
               <th class="px-4 py-2">Waktu Terupdate</th>
@@ -164,6 +165,7 @@ export default function MobileViewCMS() {
                   {index + 1 + (currentPage() - 1) * itemsPerPage}
                 </td>
                 <td class="px-4 py-2">{item.nama}</td>
+                <td class="px-4 py-2">{item.phonenumber}</td>
                 <td class="px-4 py-2">{item.status || "-"}</td>
                 <td class="px-4 py-2">{item.hadiah || "-"}</td>
                 <td class="px-4 py-2">{item.updated_at || "-"}</td>
