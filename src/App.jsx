@@ -47,7 +47,7 @@ function App() {
 
   return (
     <div
-      class="flex flex-col items-center bg-black min-h-screen bg-cover bg-center"
+      class="flex flex-col items-center bg-[#66ff66] min-h-screen bg-cover bg-center"
       // style={{
       //   "background-image": `url(${backgroundPhotobooth})`,
       //   "background-size": "cover",

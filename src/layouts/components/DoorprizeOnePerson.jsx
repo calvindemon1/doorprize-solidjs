@@ -17,7 +17,7 @@ export default function DoorprizeOnePerson() {
   const startRolling = () => {
     if (participants().length === 0) return;
 
-    buttonSound.play();
+    // buttonSound.play();
     setIsRolling(true);
     setWinner(null);
 
@@ -36,7 +36,7 @@ export default function DoorprizeOnePerson() {
   const stopRolling = async () => {
     if (!isRolling()) return;
 
-    buttonSound.play();
+    // buttonSound.play();
     clearInterval(rollInterval);
     setIsRolling(false);
 
@@ -67,11 +67,11 @@ export default function DoorprizeOnePerson() {
       const updatedList = participants().map((p) =>
         p.id === selected.id
           ? {
-              ...p,
-              status: "DONE",
-              hadiah: hadiahLabel,
-              updated_at: now,
-            }
+            ...p,
+            status: "DONE",
+            hadiah: hadiahLabel,
+            updated_at: now,
+          }
           : p
       );
 
@@ -132,24 +132,28 @@ export default function DoorprizeOnePerson() {
       <div class="text-4xl mb-6 text-center">
         {isRolling() && currentName() && (
           <>
-            <div class="font-bold text-[60px] mb-10" 
-          style={{
-            "font-family": "Gobold",
-          }}>{currentName().nama}</div>
+            <div class="font-bold text-[60px] mb-10"
+              style={{
+                "font-family": "Gobold",
+              }}>{currentName().nama}</div>
             <div class="text-[60px]"
-          style={{
-            "font-family": "Gobold",
-          }}>{currentName().notelp}</div>
+              style={{
+                "font-family": "Gobold",
+              }}>{currentName().notelp}</div>
           </>
         )}
-        {/* {winner() && (
+        {winner() && (
           <>
-            <div class="text-5xl font-bold text-yellow-400">🎉 Pemenang 🎉</div>
-            <div class="text-4xl">{winner().nama}</div>
-            <div class="text-2xl text-gray-300">{winner().notelp}</div>
-            <div class="mt-2 text-lg">Hadiah ke-{winner().hadiah}</div>
+            <div class="font-bold text-[60px] mb-10"
+              style={{
+                "font-family": "Gobold",
+              }}>{winner().nama}</div>
+            <div class="text-[60px]"
+              style={{
+                "font-family": "Gobold",
+              }}>{winner().notelp}</div>
           </>
-        )} */}
+        )}
       </div>
     </div>
   );

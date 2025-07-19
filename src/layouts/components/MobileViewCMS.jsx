@@ -5,7 +5,7 @@ import { deleteWinner } from "../api/api";
 import sfxButton from "../../assets/sfx/sfxbtn.wav";
 
 export default function MobileViewCMS() {
-  const buttonSound = new Audio(sfxButton);
+  // const buttonSound = new Audio(sfxButton);
 
   const [activeTab, setActiveTab] = createSignal("queue");
   const [dataQueue, setDataQueue] = createSignal([]);
@@ -45,6 +45,7 @@ export default function MobileViewCMS() {
         "http://localhost:3000/api/participants/queue"
       );
       const queueData = await resQueue.json();
+      console.log(queueData.data)
       setDataQueue(queueData.data || []);
 
       await refreshWinners();
@@ -105,7 +106,7 @@ export default function MobileViewCMS() {
                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
             onClick={() => {
-              buttonSound.play();
+              // buttonSound.play();
               setActiveTab(tab);
               setCurrentPage(1);
               setSearchTerm("");
