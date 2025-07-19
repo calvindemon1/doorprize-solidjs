@@ -22,9 +22,9 @@ function Loading(background) {
           alt="Logo"
           class="w-52 md:w-72 rounded-lg mb-5"
         /> */}
-        <p class="text-4xl md:text-5xl font-extrabold uppercase text-white tracking-wide animate-pulse font-mono">
+        {/* <p class="text-4xl md:text-5xl font-extrabold uppercase text-white tracking-wide animate-pulse font-mono">
           Loading...
-        </p>
+        </p> */}
       </div>
     </div>
   );
